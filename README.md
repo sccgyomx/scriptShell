@@ -1,2 +1,2 @@
 # scriptShell
- Proyecto final Adminitracion de redes
+ Proyecto final Administracion de redes

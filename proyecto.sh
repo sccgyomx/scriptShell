@@ -3,31 +3,29 @@
 # Bash Menu Script Example
 # Funcion para leer los usuarios por nombre y apellidos.
 agregar_usuarios () {
-    echo "---------------------------------------------------"
-    read -p "Ingrese el nombre: " nombre
-    nombre="${nombre^}"
-    read -p "Ingrese el apellido paterno: " apellido1
-    apellido1="${apellido1^}"
-    read -p "Ingrese el apellido materno: " apellido2
-    apellido2="${apellido2^}"
-    nombrecompleto="$nombre $apellido1 $apellido2"
-    read -a nombre <<< "$nombre"
-    usuario="${nombre[0]}${apellido1:0:3}${apellido2:0:2}"
-    usuario="${usuario,,}"
-    usuario="${usuario^}"
-    arreglousuarios[$i]=$usuario
-    arreglonombres[$i]=$nombrecompleto
+    echo "---------------------- -----------------------------"
+    echo "La contraseña del nuevo usuario debe ser por lo menos de 12 caracteres"
+    read -p "Presiona una tecla para continuar" opcion1
     clear
-}
+    echo " Nuevo Usuario "
+    echo "---------------------- -----------------------------"
+    read -p "Ingrese el nombre: " user
+    user="${user}"
+    read -p "Ingrese su contraseña: " pass
+    pass="${pass}"
 
-# Funcion para mostrar todos los usuarios
-mostrar_usuarios () {
-    echo "-----------------------------------------------------------------"
-    echo "Nombre: ${arreglonombres[i]}"
-    echo "Usuario: ${arreglousuarios[i]}"
-    echo
-    # Descomentar la linea siguiente para agregar los usuarios
-    #sudo useradd -m ${arreglousuarios[i],,}
+    
+    if [ $((${#pass})) -gt $((11)) ];
+    then
+        echo ""
+        # Descomentar la linea siguiente para agregar los usuarios
+        #sudo useradd -p ${pass} ${user}
+    else
+        echo " La contraseña no puede ser menor a 12 caracteres"
+    fi
+    
+
+    
     read -p "Presiona una tecla para continuar" opcion1
     clear
 }
@@ -47,9 +45,7 @@ select opt in "${options[@]}"
 do
     case $opt in
         "Agregar Usuario")
-            echo " Nuevo Usuario "
             agregar_usuarios
-            mostrar_usuarios
             menu
             ;;
         "Optener ultimas acciones de un usuario")
